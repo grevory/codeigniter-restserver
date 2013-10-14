@@ -44,12 +44,12 @@ class Key extends REST_Controller
 		// Insert the new key
 		if (self::_insert_key($key, array('level' => $level, 'ignore_limits' => $ignore_limits)))
 		{
-			$this->response(array('status' => 1, 'key' => $key), 201); // 201 = Created
+			$this->response(array('status' => 1, 'key' => $key), HTTP_STATUS_CREATED);
 		}
 
 		else
 		{
-			$this->response(array('status' => 0, 'error' => 'Could not save the key.'), 500); // 500 = Internal Server Error
+			$this->response(array('status' => 0, 'error' => 'Could not save the key.'), HTTP_STATUS_INTERNAL_SERVER_ERROR);
 		}
     }
 
@@ -71,14 +71,14 @@ class Key extends REST_Controller
 		if ( ! self::_key_exists($key))
 		{
 			// NOOOOOOOOO!
-			$this->response(array('status' => 0, 'error' => 'Invalid API Key.'), 400);
+			$this->response(array('status' => 0, 'error' => 'Invalid API Key.'), HTTP_STATUS_BAD_REQUEST);
 		}
 
 		// Kill it
 		self::_delete_key($key);
 
 		// Tell em we killed it
-		$this->response(array('status' => 1, 'success' => 'API Key was deleted.'), 200);
+		$this->response(array('status' => 1, 'success' => 'API Key was deleted.'), HTTP_STATUS_OK);
     }
 
 	// --------------------------------------------------------------------
@@ -100,18 +100,18 @@ class Key extends REST_Controller
 		if ( ! self::_key_exists($key))
 		{
 			// NOOOOOOOOO!
-			$this->response(array('error' => 'Invalid API Key.'), 400);
+			$this->response(array('error' => 'Invalid API Key.'), HTTP_STATUS_BAD_REQUEST);
 		}
 
 		// Update the key level
 		if (self::_update_key($key, array('level' => $new_level)))
 		{
-			$this->response(array('status' => 1, 'success' => 'API Key was updated.'), 200); // 200 = OK
+			$this->response(array('status' => 1, 'success' => 'API Key was updated.'), HTTP_STATUS_OK);
 		}
 
 		else
 		{
-			$this->response(array('status' => 0, 'error' => 'Could not update the key level.'), 500); // 500 = Internal Server Error
+			$this->response(array('status' => 0, 'error' => 'Could not update the key level.'), HTTP_STATUS_INTERNAL_SERVER_ERROR);
 		}
     }
 
@@ -133,18 +133,18 @@ class Key extends REST_Controller
 		if ( ! self::_key_exists($key))
 		{
 			// NOOOOOOOOO!
-			$this->response(array('error' => 'Invalid API Key.'), 400);
+			$this->response(array('error' => 'Invalid API Key.'), HTTP_STATUS_BAD_REQUEST);
 		}
 
 		// Update the key level
 		if (self::_update_key($key, array('level' => 0)))
 		{
-			$this->response(array('status' => 1, 'success' => 'Key was suspended.'), 200); // 200 = OK
+			$this->response(array('status' => 1, 'success' => 'Key was suspended.'), HTTP_STATUS_OK);
 		}
 
 		else
 		{
-			$this->response(array('status' => 0, 'error' => 'Could not suspend the user.'), 500); // 500 = Internal Server Error
+			$this->response(array('status' => 0, 'error' => 'Could not suspend the user.'), HTTP_STATUS_INTERNAL_SERVER_ERROR);
 		}
     }
 
@@ -167,7 +167,7 @@ class Key extends REST_Controller
 		if ( ! $key_details)
 		{
 			// NOOOOOOOOO!
-			$this->response(array('status' => 0, 'error' => 'Invalid API Key.'), 400);
+			$this->response(array('status' => 0, 'error' => 'Invalid API Key.'), HTTP_STATUS_BAD_REQUEST);
 		}
 
 		// Build a new key
@@ -179,12 +179,12 @@ class Key extends REST_Controller
 			// Suspend old key
 			self::_update_key($old_key, array('level' => 0));
 
-			$this->response(array('status' => 1, 'key' => $new_key), 201); // 201 = Created
+			$this->response(array('status' => 1, 'key' => $new_key), HTTP_STATUS_CREATED);
 		}
 
 		else
 		{
-			$this->response(array('status' => 0, 'error' => 'Could not save the key.'), 500); // 500 = Internal Server Error
+			$this->response(array('status' => 0, 'error' => 'Could not save the key.'), HTTP_STATUS_INTERNAL_SERVER_ERROR);
 		}
     }
 
