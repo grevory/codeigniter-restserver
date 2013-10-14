@@ -22,7 +22,7 @@ class Example extends REST_Controller
     {
         if(!$this->get('id'))
         {
-        	$this->response(NULL, 400);
+        	$this->response(NULL, HTTP_STATUS_BAD_REQUEST);
         }
 
         // $user = $this->some_model->getSomething( $this->get('id') );
@@ -36,12 +36,12 @@ class Example extends REST_Controller
     	
         if($user)
         {
-            $this->response($user, 200); // 200 being the HTTP response code
+            $this->response($user, HTTP_STATUS_OK);
         }
 
         else
         {
-            $this->response(array('error' => 'User could not be found'), 404);
+            $this->response(array('error' => 'User could not be found'), HTTP_STATUS_NOT_FOUND);
         }
     }
     
@@ -50,7 +50,7 @@ class Example extends REST_Controller
         //$this->some_model->updateUser( $this->get('id') );
         $message = array('id' => $this->get('id'), 'name' => $this->post('name'), 'email' => $this->post('email'), 'message' => 'ADDED!');
         
-        $this->response($message, 200); // 200 being the HTTP response code
+        $this->response($message, HTTP_STATUS_OK);
     }
     
     function user_delete()
@@ -58,7 +58,7 @@ class Example extends REST_Controller
     	//$this->some_model->deletesomething( $this->get('id') );
         $message = array('id' => $this->get('id'), 'message' => 'DELETED!');
         
-        $this->response($message, 200); // 200 being the HTTP response code
+        $this->response($message, HTTP_STATUS_OK);
     }
     
     function users_get()
@@ -72,12 +72,12 @@ class Example extends REST_Controller
         
         if($users)
         {
-            $this->response($users, 200); // 200 being the HTTP response code
+            $this->response($users, HTTP_STATUS_OK);
         }
 
         else
         {
-            $this->response(array('error' => 'Couldn\'t find any users!'), 404);
+            $this->response(array('error' => 'Couldn\'t find any users!'), HTTP_STATUS_NOT_FOUND);
         }
     }
 
