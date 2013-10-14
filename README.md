@@ -83,7 +83,7 @@ This will automatically return an `HTTP 200 OK` response. You can specify the st
 	{
 		// ...create new book
 
-		$this->response($book, 201); // Send an HTTP 201 Created
+		$this->response($book, HTTP_STATUS_CREATED);
 	}
 
 If you don't specify a response code, and the data you respond with `== FALSE` (an empty array or string, for instance), the response code will automatically be set to `404 Not Found`:
